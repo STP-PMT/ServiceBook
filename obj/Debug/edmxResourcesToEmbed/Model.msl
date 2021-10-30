@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbBookModelStoreContainer" CdmEntityContainer="dbBookEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="dbBookModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="aid" ColumnName="aid" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="dbBookModel.Book">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="bid" ColumnName="bid" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="image" ColumnName="image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="dbBookModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="oid" ColumnName="oid" />
+          <ScalarProperty Name="bid" ColumnName="bid" />
+          <ScalarProperty Name="sdate" ColumnName="sdate" />
+          <ScalarProperty Name="edate" ColumnName="edate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="dbBookModel.Type">
+        <MappingFragment StoreEntitySet="Type">
+          <ScalarProperty Name="tid" ColumnName="tid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

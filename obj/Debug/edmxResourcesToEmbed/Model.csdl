@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbBookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="aid" />
+    </Key>
+    <Property Name="aid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="bid" />
+    </Key>
+    <Property Name="bid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="detail" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Type1" Relationship="Self.FK_Books_Type" FromRole="Books" ToRole="Type" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Books" FromRole="Books" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="oid" />
+    </Key>
+    <Property Name="oid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bid" Type="Int32" Nullable="false" />
+    <Property Name="sdate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="edate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Orders_Books" FromRole="Orders" ToRole="Books" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_Books_Type" FromRole="Type" ToRole="Books" />
+  </EntityType>
+  <Association Name="FK_Books_Type">
+    <End Role="Type" Type="Self.Type" Multiplicity="1" />
+    <End Role="Books" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Books">
+    <End Role="Books" Type="Self.Book" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="bid" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="bid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbBookEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Types" EntityType="Self.Type" />
+    <AssociationSet Name="FK_Books_Type" Association="Self.FK_Books_Type">
+      <End Role="Type" EntitySet="Types" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Books" Association="Self.FK_Orders_Books">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
