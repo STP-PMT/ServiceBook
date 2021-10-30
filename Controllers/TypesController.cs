@@ -47,7 +47,7 @@ namespace ServiceBook.Controllers
 
             if (id != type.tid)
             {
-                return BadRequest();
+                return BadRequest(id.ToString());
             }
 
             db.Entry(type).State = EntityState.Modified;
